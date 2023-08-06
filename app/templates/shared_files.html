@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shared Files</title>
+  </head>
+  <body>
+    <h1>Shared Files</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Uploaded By</th>
+          <th>Date Uploaded</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file in files %}
+        <tr>
+          <td><a href="{{ url_for('download_file', filename=file.filename) }}">{{ file.filename }}</a></td>
+          <td>{{ file.uploaded_by }}</td>
+          <td>{{ file.date_uploaded.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

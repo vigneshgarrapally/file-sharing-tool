@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload File</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
+    <style>
+      .ui.centered.container {
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        display: flex;
+        margin-bottom: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    {% extends "base.html" %} {% block content %}
+    <div class="ui centered container">
+      {% with messages = get_flashed_messages(with_categories=True) %} {% if
+      messages %} {% for category,message in messages %}
+      <div class="ui compact {{ category }} message">
+        <div class="header">{{ message }}</div>
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+    <div>
+      <h1 class="ui center aligned header">
+        Hi {{ current_user.full_name }}! Upload your files
+      </h1>
+    </div>
+    <div class="ui one column stackable centered page grid">
+      <div class="column six wide">
+        <form class="ui form" method="POST" enctype="multipart/form-data">
+          {{ form.csrf_token }}
+          <div class="ui segment">
+            <div class="ui header">Upload a file</div>
+            <div class="ui divider"></div>
+            <div class="ui field">
+              {{ form.file.label }} {{ form.file() }} {% for error in
+              form.file.errors %}
+              <span style="color: red">{{ error }}</span>
+              {% endfor %}
+            </div>
+            <div class="ui field">
+              {{form.emails.label}} {{form.emails()}} {% for error in
+              form.emails.errors %}
+              <span style="color: red">{{ error }}</span>
+              {% endfor %}
+            </div>
+            <div class="ui field">
+              {{ form.submit(class="ui primary submit button") }}
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% endblock %}
+  </body>
+</html>

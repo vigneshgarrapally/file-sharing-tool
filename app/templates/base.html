@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Sharing Tool</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
+    <style>
+      .item.active {
+        background-color: #d3f8e2 !important;
+      }
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f1f1f1;
+        color: black;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body style="background-color: #d3f8e2">
+    <nav>
+      <div class="ui borderless massive menu">
+        <div class="ui container">
+          <div class="header item">cloud-based file sharing tool</div>
+          <a
+            class="item {% if active_page == 'index' %}active{% endif %}"
+            href="{{ url_for('index') }}"
+            >Home</a
+          >
+          <a
+            class="item {% if active_page == 'upload' %}active{% endif %}"
+            href="{{ url_for('upload') }}"
+            >Upload File</a
+          >
+          <div class="right menu">
+            {% if current_user.is_authenticated %}
+            <a
+              class="item {% if active_page == 'login' %}active{% endif %}"
+              href="{{ url_for('logout') }}"
+              >Logout</a
+            >
+            {% else %}
+            <a
+              class="item {% if active_page == 'login' %}active{% endif %}"
+              href="{{ url_for('login') }}"
+              >Login</a
+            >
+            {% endif %}
+            <a
+              class="item {% if active_page == 'register' %}active{% endif %}"
+              href="{{ url_for('register') }}"
+              >Signup</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div style="text-align: center; margin-top: 20px" class="footer">
+      <p>
+        Copyright &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        All rights reserved | Cloud Sharing App
+      </p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    {% block content %}{% endblock %}
+  </body>
+</html>
